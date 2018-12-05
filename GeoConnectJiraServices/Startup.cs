@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+﻿using System.Reflection;
 using System.Web.Http;
 using Autofac;
-using GeoConnectJiraServices.Autofac;
 using Autofac.Integration.WebApi;
 using Owin;
 
@@ -15,10 +10,11 @@ namespace GeoConnectJiraServices
     {
         public void Configuration(IAppBuilder appBuilder)
         {
+            appBuilder.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             HttpConfiguration httpConfiguration = new HttpConfiguration();
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterModule(new DataModule());
+            builder.RegisterModule(new GeoConnectJiraServices.Autofac.DataModule());
             IContainer container = builder.Build();
             httpConfiguration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             WebApiConfig.Register(httpConfiguration);

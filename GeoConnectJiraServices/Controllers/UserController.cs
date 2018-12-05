@@ -9,11 +9,11 @@ namespace GeoConnectJiraServices.Controllers
 {
 
     [RoutePrefix("sp/jira")]
-    public class AddUserController : ApiController
+    public class UserController : ApiController
     {
         private readonly IUser _iUserService;
 
-        public AddUserController(IUser iUserService)
+        public UserController(IUser iUserService)
         {
             _iUserService = iUserService;
         }
@@ -30,8 +30,8 @@ namespace GeoConnectJiraServices.Controllers
 
         [HttpGet]
         [Route("getusers")]
-        [ResponseType(typeof(AddUser))]
-        public async Task<IList<AddUser>> GetUsers()
+        [ResponseType(typeof(GetUser))]
+        public async Task<IList<GetUser>> GetUsers()
         {
             return await _iUserService.GetUsers();
         }

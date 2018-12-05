@@ -9,6 +9,6 @@ namespace GeoConnectJiraServices.Interfaces
         Task<int> AddUser(AddUser user);
 
 
-        Task<IList<AddUser>> GetUsers();
+        Task<IList<GetUser>> GetUsers();
     }
 }

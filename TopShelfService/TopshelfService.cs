@@ -1,9 +1,8 @@
-﻿using GeoConnectJiraServices;
-using System;
+﻿using System;
 using Microsoft.Owin.Hosting;
+using GeoConnectJiraServices;
 
-
-namespace GeoConnectWinService
+namespace TopShelfService
 {
     public class TopshelfService
     {
@@ -11,12 +10,13 @@ namespace GeoConnectWinService
 
         public void Start()
         {
-            WebServer = WebApp.Start<Startup>("http://localhost:5678");
+            WebServer = WebApp.Start<Startup>("http://localhost:56778");
         }
 
         public void Stop()
         {
             this.WebServer?.Dispose();
         }
+
     }
 }

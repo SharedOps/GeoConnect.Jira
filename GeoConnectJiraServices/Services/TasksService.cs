@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using GeoConnectJiraServices.Interfaces;
 using GeoConnectJiraServices.Models;
@@ -7,45 +6,39 @@ using GeoConnect.Application.Interfaces;
 using Dapper;
 using GeoConnect.Application.Models;
 using System.Configuration;
-using GeoConnectJiraServices.Utilities;
 
 namespace GeoConnectJiraServices.Services
 {
-    public class UserService : IUser
+    public class TasksService: ITaskService
     {
         private readonly IJiraApplicationService _iJiraApplicationService;
 
         private DBConnection connection { get; set; } = new DBConnection();
 
-        public UserService(IJiraApplicationService jiraApplicationService)
+        public TasksService(IJiraApplicationService jiraApplicationService)
         {
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["JIRAConnection"].ConnectionString;
             _iJiraApplicationService = jiraApplicationService;
         }
 
-        public Task<int> AddUser(AddUser user)
+
+        public Task<int> AddTasks(Tasks task)
         {
             try
             {
-                connection.StoredProcedure = Constants.InsertUsers;
+                connection.StoredProcedure = "sp_Insert_Tasks";
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@p_Firstname", user.FirstName);
-                parameters.Add("@p_Lastname", user.LastName);
-                parameters.Add("@p_Email", user.Email);
+                parameters.Add("@p_TaskName", task.TaskName);
+                parameters.Add("@p_TaskDescription", task.TaskDescription);
+                parameters.Add("@p_ProjectId", task.ProjectId);
+                parameters.Add("@p_AssignedTo", task.AssignedTo);
+                parameters.Add("@p_TaskStatus", task.TaskStatus);
                 return _iJiraApplicationService.Execute(parameters, connection);
             }
             catch (Exception ex)
             {
-
                 throw;
             }
-        }
-
-        public Task<IList<GetUser>> GetUsers()
-        {
-            connection.StoredProcedure = Constants.GetUsers;
-            DynamicParameters parameters = new DynamicParameters();
-            return _iJiraApplicationService.QueryList<GetUser>(parameters, connection);
         }
     }
 }

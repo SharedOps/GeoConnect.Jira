@@ -10,9 +10,10 @@ namespace GeoConnectJiraServices.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<JiraApplicationService>().As<IJiraApplicationService>();
             builder.RegisterType<ProjectService>().As<IProjectsService>();
             builder.RegisterType<UserService>().As<IUser>();
+            builder.RegisterType<JiraApplicationService>().As<IJiraApplicationService>();
+           
 
         }
     }
