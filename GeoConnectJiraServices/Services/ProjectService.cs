@@ -6,6 +6,7 @@ using GeoConnect.Application.Interfaces;
 using Dapper;
 using GeoConnect.Application.Models;
 using System.Configuration;
+using GeoConnectJiraServices.Utilities;
 
 namespace GeoConnectJiraServices.Services
 {
@@ -21,15 +22,13 @@ namespace GeoConnectJiraServices.Services
             _iJiraApplicationService = jiraApplicationService;
         }
 
-
-
         public Task<int> AddProject(AddProject project)
         {
             try
             {
-                connection.StoredProcedure = "sp_Insert_Projects";
+                connection.StoredProcedure = Constants.InsertProject;
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@p_ProjectName",project.ProjectName);
+                parameters.Add(Constants.ProjectName_Param, project.ProjectName);
                 return _iJiraApplicationService.Execute(parameters, connection);
             }
             catch (Exception ex)
@@ -38,6 +37,5 @@ namespace GeoConnectJiraServices.Services
                 throw;
             }
         }
-
     }
 }

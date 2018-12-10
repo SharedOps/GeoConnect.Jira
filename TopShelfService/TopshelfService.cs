@@ -10,7 +10,7 @@ namespace TopShelfService
 
         public void Start()
         {
-            WebServer = WebApp.Start<Startup>("http://localhost:56778");
+            WebServer = WebApp.Start<Startup>("http://localhost:5678");
         }
 
         public void Stop()

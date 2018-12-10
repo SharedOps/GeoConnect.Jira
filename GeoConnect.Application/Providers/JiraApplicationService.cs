@@ -14,11 +14,7 @@ namespace GeoConnect.Application.Providers
 {
     public class JiraApplicationService : IJiraApplicationService
     {
-        public JiraApplicationService()
-        {
-
-        }
-
+      
         public Task<IList<T>> QueryList<T>(DynamicParameters parameterModel, DBConnection connection) where T : new()
         {
             using (SqlConnection con = new SqlConnection(connection.ConnectionString))

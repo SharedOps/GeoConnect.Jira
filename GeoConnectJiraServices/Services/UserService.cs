@@ -29,9 +29,9 @@ namespace GeoConnectJiraServices.Services
             {
                 connection.StoredProcedure = Constants.InsertUsers;
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@p_Firstname", user.FirstName);
-                parameters.Add("@p_Lastname", user.LastName);
-                parameters.Add("@p_Email", user.Email);
+                parameters.Add(Constants.FirstName_Param, user.FirstName);
+                parameters.Add(Constants.LastName_Param, user.LastName);
+                parameters.Add(Constants.Email_Param, user.Email);
                 return _iJiraApplicationService.Execute(parameters, connection);
             }
             catch (Exception ex)

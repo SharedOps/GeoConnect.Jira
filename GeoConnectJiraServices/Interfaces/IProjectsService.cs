@@ -10,6 +10,7 @@ namespace GeoConnectJiraServices.Interfaces
    public interface IProjectsService
     {
 
+        //Method signature for Projects
 
         Task<int> AddProject(AddProject project);
 
